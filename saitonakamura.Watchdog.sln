@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeartbeatWatchdog", "HeartbeatWatchdog\HeartbeatWatchdog.csproj", "{3E7764AC-9390-4EE8-9585-C9E9F93783D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "saitonakamura.Watchdog", "saitonakamura.Watchdog\saitonakamura.Watchdog.csproj", "{3E7764AC-9390-4EE8-9585-C9E9F93783D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{F8898742-B6E7-4455-A2CF-180ECE26600C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{F8898742-B6E7-4455-A2CF-180ECE26600C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

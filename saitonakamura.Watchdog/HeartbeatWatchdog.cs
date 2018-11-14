@@ -2,10 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HeartbeatWatchdogs
+namespace saitonakamura.Watchdog
 {
     public class HeartbeatWatchdog : IDisposable
     {
+        public event EventHandler<EventArgs> HeartbeatStopped = delegate { };
+
         private readonly int _alertMs;
         private readonly string _name;
         private readonly Action<string> _infoLogger = delegate { };
@@ -19,7 +21,7 @@ namespace HeartbeatWatchdogs
         private long _lastBeatTotalMs;
 
         public HeartbeatWatchdog(int milliseconds, 
-            string name, 
+            string name = "",
             Action<string> infoLogger = null, 
             Action<string> debugLogger = null,
             Action<Exception, string> errorLogger = null)
@@ -36,7 +38,7 @@ namespace HeartbeatWatchdogs
         }
 
         public HeartbeatWatchdog(TimeSpan alertSpan,
-            string name,
+            string name = null,
             Action<string> infoLogger = null,
             Action<string> debugLogger = null,
             Action<Exception, string> errorLogger = null)
@@ -45,7 +47,23 @@ namespace HeartbeatWatchdogs
         {
         }
 
-        public event EventHandler<EventArgs> HeartbeatStopped = delegate { };
+        public static HeartbeatWatchdog StartNew(TimeSpan alertSpan,
+            string name = null,
+            Action<string> infoLogger = null,
+            Action<string> debugLogger = null,
+            Action<Exception, string> errorLogger = null)
+        {
+            return new HeartbeatWatchdog(alertSpan, name, infoLogger, debugLogger, errorLogger);
+        }
+
+        public static HeartbeatWatchdog StartNew(int alertSpan,
+            string name = null,
+            Action<string> infoLogger = null,
+            Action<string> debugLogger = null,
+            Action<Exception, string> errorLogger = null)
+        {
+            return new HeartbeatWatchdog(alertSpan, name, infoLogger, debugLogger, errorLogger);
+        }
 
         public void Start(CancellationToken outerCancellationToken = default(CancellationToken))
         {
@@ -61,16 +79,16 @@ namespace HeartbeatWatchdogs
             Task.Run(async () => await RunMonitor(_cancelSource.Token), _cancelSource.Token);
         }
 
-        public void Restart(CancellationToken outerCancellationToken = default(CancellationToken))
-        {
-            _infoLogger($"HeartbeatWatchdog {_name} about to restart");
-            _cancelSource.Cancel();
-
-            _cancelSource.Dispose();
-            _innerCancellationTokenSource.Dispose();
-
-            Start(outerCancellationToken);
-        }
+//        public void Restart(CancellationToken outerCancellationToken = default(CancellationToken))
+//        {
+//            _infoLogger($"HeartbeatWatchdog {_name} about to restart");
+//            _cancelSource.Cancel();
+//
+//            _cancelSource.Dispose();
+//            _innerCancellationTokenSource.Dispose();
+//
+//            Start(outerCancellationToken);
+//        }
 
         public void Beat()
         {
@@ -98,7 +116,6 @@ namespace HeartbeatWatchdogs
                     if (msElapsed > _alertMs)
                     {
                         HeartbeatStopped(this, EventArgs.Empty);
-                        return;
                     }
 
                     await Task.Delay(_alertMs / 2, cancelToken);
