@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <Version>0.1.0</Version>
+    <Authors>saitonakamura</Authors>
+    <Company />
+    <Product>saitonakamura.Watchdog</Product>
+    <Description>Lightweight, thread-safe Watchdog with manual beats</Description>
+    <PackageProjectUrl>https://github.com/saitonakamura/cs-heartbeat-watchdog</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/saitonakamura/cs-heartbeat-watchdog</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>watchdog</PackageTags>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <Copyright>saitonakamura 2018</Copyright>
   </PropertyGroup>
 
 </Project>
