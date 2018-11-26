@@ -1,4 +1,4 @@
-# HeartbeatWatchdog
+# HeartbeatWatchdog [![Travis CI master branch status](https://travis-ci.org/saitonakamura/cs-heartbeat-watchdog.svg?branch=master)](https://travis-ci.org/saitonakamura/cs-heartbeat-watchdog)
 
 Lightweight, thread-safe Watchdog with manual beats
 
