@@ -34,6 +34,20 @@ namespace Tests
 
             handlerMock.Verify(x => x.Handle(It.IsAny<object>(), It.IsAny<EventArgs>()), Times.Never);
         }
+
+        [Fact]
+        public void Given1SecondAndNowInTheFuture_DoesntFireEvent()
+        {
+            var handlerMock = new Mock<ITestHandler>();
+
+            var watchdog = new HeartbeatWatchdog(TestTimespans.Second);
+            watchdog.HeartbeatStopped += handlerMock.Object.Handle;
+
+            watchdog.Start(now: DateTime.Now.AddSeconds(3));
+            Thread.Sleep(TestTimespans.SecondAndABit);
+
+            handlerMock.Verify(x => x.Handle(It.IsAny<object>(), It.IsAny<EventArgs>()), Times.Never);
+        }
     }
 
     public class StartNewTests

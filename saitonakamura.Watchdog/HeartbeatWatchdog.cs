@@ -79,7 +79,7 @@ namespace saitonakamura.Watchdog
         {
             _infoLogger($"HeartbeatWatchdog {_name} has been started");
 
-            Beat();
+            Beat(now);
             Task.Run(async () => await RunMonitor(cancelToken), cancelToken);
         }
 
