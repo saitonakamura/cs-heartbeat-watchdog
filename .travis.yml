@@ -1,0 +1,8 @@
+language: csharp
+solution: saitonakamura.Watchdog.sln
+mono: none
+dotnet: 2.1
+script:
+  - dotnet restore
+  - cd Tests
+  - dotnet test
